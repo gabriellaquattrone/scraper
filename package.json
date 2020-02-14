@@ -4,7 +4,8 @@
   "description": "a web app that lets users view and leave comments on the latest news",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
+    "mongojs": "^3.1.0",
     "mongoose": "^5.8.11"
   }
 }
