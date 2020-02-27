@@ -1,6 +1,7 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
 
+const scrape = function() {
 axios.get('https://www.usatoday.com/tech').then(response => {
     
     // Load the entire web page into cheerio
@@ -30,5 +31,12 @@ axios.get('https://www.usatoday.com/tech').then(response => {
         }
   
     });
-    console.log(articleArray);
+    
+    // Debugging
+    // console.log(articleArray);
+
+    return articleArray;
 });
+}
+
+module.exports = scrape;
