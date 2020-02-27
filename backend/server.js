@@ -1,24 +1,24 @@
 // Dependencies
-var express = require("express");
-var mongojs = require("mongojs");
-var mongoose = require("mongoose");
+let express = require("express");
+let mongojs = require("mongojs");
+let mongoose = require("mongoose")
 
 // Require axios and cheerio. This makes the scraping possible
-var axios = require("axios");
-var cheerio = require("cheerio");
+let axios = require("axios");
+let cheerio = require("cheerio");
 
 
 // Initialize Express
-var app = express();
+let app = express();
 
 // Database configuration
-var databaseUrl = "scraper";
-var collections = ["scrapedData"];
+let databaseUrl = "scraper";
+let collections = ["scrapedData"];
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 // Hook mongojs configuration to the db variable
@@ -52,12 +52,12 @@ app.get("/scrape", function(req, res) {
   // Make a request via axios for the news section of `ycombinator`
   axios.get("https://news.ycombinator.com/").then(function(response) {
     // Load the html body from axios into cheerio
-    var $ = cheerio.load(response.data);
+    let $ = cheerio.load(response.data);
     // For each element with a "title" class
     $(".title").each(function(i, element) {
       // Save the text and href of each link enclosed in the current element
-      var title = $(element).children("a").text();
-      var link = $(element).children("a").attr("href");
+      let title = $(element).children("a").text();
+      let link = $(element).children("a").attr("href");
 
       // If this found element had both a title and a link
       if (title && link) {
