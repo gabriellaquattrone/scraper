@@ -2,30 +2,27 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // Pages
-import Homepage from './pages/index.js'
-import Saved from './pages/saved';
+import Homepage from '../src/pages/index'
+import Saved from '../src/pages/saved';
 
 // Components
-
-
+import Navbar from "../src/components/Navbar";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Navbar/>
+        <Switch>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
+          <Route exact path="/saved">
+            <Saved />
+          </Route>
+        </Switch>
+    </Router>
+   
   );
 }
 

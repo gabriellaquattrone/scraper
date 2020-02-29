@@ -4,7 +4,12 @@ app
     .route('/')
     .get(articleController.findAllArticles)
     .post(articleController.createArticle)
-    .put()
+    .put(articleController.saveArticle)
     .delete();
+
+app.route('/saved').get(articleController.findAllWhereSaved);
+app.route('/:articleId')
+    .put(articleController.saveArticle);
+
 
 module.exports = app;
