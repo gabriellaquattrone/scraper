@@ -24,7 +24,8 @@ export default function ButtonAppBar() {
   const classes = useStyles();
 
   // State that will keep track of whatever page I am on
-  const { currentPage, setCurrentPage} = useState(window.location.href);
+  const [currentPage, setCurrentPage] = useState(window.location.pathname);
+
 
   console.log(currentPage)
   return (
@@ -41,10 +42,12 @@ export default function ButtonAppBar() {
             {currentPage === "/" ? (
                 <>
                 <Button color="inherit">Scrape</Button>
-                <Button component={Link} to="/saved" color="inherit">Saved</Button>
+                <Button onClick={()=>{setCurrentPage('/saved');}}
+                        component={Link} to="/saved" color="inherit">Saved</Button>
                 </> 
                 ) : (
-                <Button component={Link} to="/" color="inherit">Home</Button>
+                <Button onClick={() => {setCurrentPage('/')}}
+                        component={Link} to="/" color="inherit">Home</Button>
                  ) }   
                 
         </Toolbar>
