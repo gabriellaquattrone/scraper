@@ -41,7 +41,7 @@ export default function ButtonAppBar() {
           </Typography>
             {currentPage === "/" ? (
                 <>
-                <Button color="inherit">Scrape</Button>
+                <Button onClick={()=>{}} color="inherit">Scrape</Button>
                 <Button onClick={()=>{setCurrentPage('/saved');}}
                         component={Link} to="/saved" color="inherit">Saved</Button>
                 </> 

@@ -29,18 +29,16 @@ const Homepage = () => {
     useEffect(() => {
       API.findAllWhereUnsaved().then((responseArticles)=>{
         console.log(responseArticles)
+        setArticles(responseArticles.data);
       })
-    })
+    }, [API])
     return (
     <div className={classes.root}>
     <Grid container spacing={3}>
+      {articles.length !== 0 ?
         <Grid item xs={12}>
-          <Card/>
-          <Card/>
-          <Card/>
-          <Card/>
-          <Card/>
-        </Grid>
+    {articles.map(data => <Card cardArgs={data}/>)}
+        </Grid> : <p> You have no articles. </p>}
     </Grid>
     </div>
     )
