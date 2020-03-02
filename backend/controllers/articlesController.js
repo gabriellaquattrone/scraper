@@ -18,10 +18,10 @@ module.exports = {
     createArticle: (req, res) => {
 
         // Grab all the articles
-        scrape.then(scrapedArticles => {
+        scripts.then(scrapedArticles => {
             // Once we have the articles, we insert them into the database
             db.Articles.insertMany(scrapedArticles).then(insertedArticles => {
-                res.json(insertArticles);
+                res.json(insertedArticles);
             });
         });  
     },
