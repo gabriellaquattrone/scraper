@@ -1,12 +1,27 @@
 import React, {useState, useEffect} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
 // Components
 import Card from "../components/Card"
+import Grid from '@material-ui/core/Grid';
 
 //API
 import API from '../utils/API';
 
+const useStyles = makeStyles(theme => ({
+    root: {
+      flexGrow: 1,
+      padding: '40px'
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+  }));
+
 const Saved = () => {
+    const classes = useStyles();
     const [savedArticles, setSavedArticles] = useState([]);
 
     useEffect(()=>{
@@ -14,11 +29,15 @@ const Saved = () => {
             setSavedArticles(responseSavedArticles.data);
         });
 
-    }, [API]);
+    }, []);
     return (
-        <div>
-          
-            <p>Saved page</p>
+        <div className={classes.root}>
+        <Grid container spacing={3}>
+          {savedArticles.length !== 0 ?
+            <Grid item xs={12}>
+        {savedArticles.map(data => <Card key={data._id} cardArgs={data}/>)}
+            </Grid> : <p> You have no articles. </p>}
+        </Grid>
         </div>
     )
 }

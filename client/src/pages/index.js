@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-const Homepage = () => {
+const Homepage = (props) => {
     const classes = useStyles();
 
     const [articles, setArticles] = useState([]);
@@ -31,13 +31,22 @@ const Homepage = () => {
         console.log(responseArticles)
         setArticles(responseArticles.data);
       })
-    }, [API])
+    }, []);
+
+    const handleSaveArticle = (articleId) => {
+      API.saveArticle(articleId).then(savedArticle => {
+        API.findAllWhereUnsaved().then((responseArticles) => {
+          setArticles(responseArticles.data);
+        })
+      })
+    };
+
     return (
     <div className={classes.root}>
     <Grid container spacing={3}>
-      {articles.length !== 0 ?
+      {props.articles.length !== 0 ?
         <Grid item xs={12}>
-    {articles.map(data => <Card cardArgs={data}/>)}
+    {props.articles.map(data => <Card key={data._id} handleSaveArticle={handleSaveArticle} cardArgs={data}/>)}
         </Grid> : <p> You have no articles. </p>}
     </Grid>
     </div>

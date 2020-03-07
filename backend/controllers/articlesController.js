@@ -3,7 +3,7 @@ const scripts = require("../scripts/scrape");
 module.exports = {
 
     findAllArticles: (req, res) => {
-        db.Articles.find()
+        db.Articles.find({isSaved: false})
             .populate("comments")
             .then(resultArticles => {
             res.json(resultArticles);

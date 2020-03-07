@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {Link} from 'react-router-dom';
+import API from '../utils/API';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,14 +21,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar(props) {
   const classes = useStyles();
 
   // State that will keep track of whatever page I am on
   const [currentPage, setCurrentPage] = useState(window.location.pathname);
 
+  const setArticleFunction = () => {
+    API.createArticle().then((articles)=>{
+      console.log("Articles", articles);
+      props.setArticles(articles.data);
+  })};
 
-  console.log(currentPage)
+
+  // Debugging
+  // console.log(currentPage)
   return (
     
     <div className={classes.root}>
@@ -41,7 +49,7 @@ export default function ButtonAppBar() {
           </Typography>
             {currentPage === "/" ? (
                 <>
-                <Button onClick={()=>{}} color="inherit">Scrape</Button>
+                <Button onClick={()=>{setArticleFunction()}} color="inherit">Scrape</Button>
                 <Button onClick={()=>{setCurrentPage('/saved');}}
                         component={Link} to="/saved" color="inherit">Saved</Button>
                 </> 

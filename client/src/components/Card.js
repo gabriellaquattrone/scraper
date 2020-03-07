@@ -25,7 +25,7 @@ export default function MediaCard(data) {
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-          <a href={data.cardArgs.link}class="brand-logo">{data.cardArgs.heading}</a>    
+          <a href={data.cardArgs.link} className="brand-logo">{data.cardArgs.heading}</a>    
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {data.cardArgs.info}
@@ -33,7 +33,7 @@ export default function MediaCard(data) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button onClick={() => data.handleSaveArticle(data.cardArgs._id)} size="small" color="primary">
           Saved
         </Button>
         <Button size="small" color="primary">
