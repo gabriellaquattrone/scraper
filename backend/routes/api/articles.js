@@ -8,7 +8,9 @@ app
     .delete();
 
 app.route('/saved').get(articleController.findAllWhereSaved);
+
 app.route('/:articleId')
+    .get(articleController.findOneWhereUnsaved)
     .put(articleController.saveArticle);
 
 

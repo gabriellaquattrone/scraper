@@ -22,6 +22,23 @@ export default function MediaCard(data) {
 
   return (
     <Card className={classes.root}>
+      
+      { data.isSelectedArticle===true ? 
+      (
+        <CardActionArea>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {data.cardArgs.heading}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {data.cardArgs.info}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      
+      ) : (
+
+      <>
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -36,10 +53,12 @@ export default function MediaCard(data) {
         <Button onClick={() => data.handleSaveArticle(data.cardArgs._id)} size="small" color="primary">
           Saved
         </Button>
-        <Button size="small" color="primary">
+        <Button onClick={() => data.handleGetSelectedArticle(data.cardArgs._id)} size="small" color="primary">
           Comment
         </Button>
       </CardActions>
+      </>
+      )}
     </Card>
   );
 }

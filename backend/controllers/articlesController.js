@@ -14,6 +14,11 @@ module.exports = {
             res.json(resultArticles);
         }) 
     },
+    findOneWhereUnsaved: (req, res) => {
+        db.Articles.findOne({ _id: req.params.articleId, isSaved: false}).then(resultArticles => {
+            res.json(resultArticles);
+        }) 
+    },
 
     createArticle: (req, res) => {
 

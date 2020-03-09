@@ -24,11 +24,22 @@ const useStyles = makeStyles(theme => ({
 const Homepage = (props) => {
     const classes = useStyles();
 
+    const [selectedArticle, setSelectedArticle] = useState({ id: '', heading: '', info: '', link: ''});
+    const [isSelectedArticle, setIsSelectedArticle] = useState(false);
+   
+    const handleGetSelectedArticle = (articleId) => {
+      API.findOneWhereUnsaved(articleId).then((responseSelectedArticle) => {
+        console.log(responseSelectedArticle)
+        setSelectedArticle(responseSelectedArticle.data);
+        setIsSelectedArticle(true);
+      })
+    };
+
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
       API.findAllWhereUnsaved().then((responseArticles)=>{
-        console.log(responseArticles)
+        console.log(responseArticles);
         setArticles(responseArticles.data);
       })
     }, []);
@@ -44,10 +55,40 @@ const Homepage = (props) => {
     return (
     <div className={classes.root}>
     <Grid container spacing={3}>
-      {props.articles.length !== 0 ?
+      { isSelectedArticle===true ? (
+        <>
+       {console.log("Selected article: ", selectedArticle)} 
+        <Card 
+        handleGetSelectedArticle={handleGetSelectedArticle}
+        isSelectedArticle={isSelectedArticle}
+        cardArgs={selectedArticle} 
+        comment='knowthyself'/>
+        
+        {
+          selectedArticle.comments.map(s => {
+            return <Card 
+                    key={s._id} 
+                    isSelectedArticle={isSelectedArticle}
+                    comment={s.comment}
+                    />;
+          })
+        }
+        </>
+      ) : (
+        <>
+      {articles.length !== 0 ? (
         <Grid item xs={12}>
-    {props.articles.map(data => <Card key={data._id} handleSaveArticle={handleSaveArticle} cardArgs={data}/>)}
-        </Grid> : <p> You have no articles. </p>}
+         {articles.map(data => {
+           return <Card 
+           key={data._id} 
+           handleGetSelectedArticle={handleGetSelectedArticle}
+           handleSaveArticle={handleSaveArticle} 
+           cardArgs={data}/> })}
+        </Grid> ) : ( 
+            <p> You have no articles. </p>
+        )}
+      </>
+      )}
     </Grid>
     </div>
     )

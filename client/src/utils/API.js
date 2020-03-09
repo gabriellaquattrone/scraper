@@ -5,7 +5,10 @@ export default {
         return axios.get('/api/articles');
     },
     findAllWhereSaved: () => {
-        return axios.get('api/articles/saved');
+        return axios.get('/api/articles/saved');
+    },
+    findOneWhereUnsaved: (articleId) => {
+        return axios.get(`/api/articles/${articleId}`);
     },
     saveArticle: (articleId) => {
         return axios.put(`/api/articles/${articleId}`)

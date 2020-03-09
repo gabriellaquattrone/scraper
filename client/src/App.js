@@ -23,7 +23,7 @@ function App() {
         <Navbar setArticles={setArticles}/>
         <Switch>
           <Route exact path="/">
-            <Homepage articles={articles}/>
+            <Homepage articlesIndex={articles}/>
           </Route>
           <Route exact path="/saved">
             <Saved />
