@@ -2,10 +2,14 @@
   "name": "scraper",
   "version": "1.0.0",
   "description": "a web app that lets users view and leave comments on the latest news",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:dev": "concurrently \"nodemon server\" \"cd ./client && npm start\"",
+    "start:prod": "nodemon server.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -20,10 +24,11 @@
   "dependencies": {
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
+    "concurrently": "^5.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-handlebars": "^3.1.0",
-    "mongojs": "^3.1.0",
-    "mongoose": "^5.8.11"
+    "if-env": "^1.0.4",
+    "mongoose": "^5.8.11",
+    "nodemon": "^2.0.2"
   }
 }
